@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Bank DApp — ฝาก ถอน และตรวจสอบยอดเงินผ่าน MetaMask บน Sepolia">
+  <title>Bank DApp | 66091338</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script defer src="./ethers.umd.min.js"></script>
+  <script defer src="./config.js"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="./"><span class="brand-mark">B<span>↗</span></span> BANK<span class="brand-light"> / DAPP</span></a>
+      <span class="network-pill"><span class="dot"></span> Sepolia Testnet</span>
+    </header>
+    <main>
+      <section class="intro">
+        <div><p class="eyebrow">YOUR WALLET. YOUR BANK.</p><h1>ธนาคารบนบล็อกเชน<span class="accent">.</span></h1><p class="subtitle">ฝาก ถอน และเช็กยอดของคุณ ผ่าน Smart Contract</p></div>
+        <div class="student"><span class="label">จัดทำโดย</span><strong id="studentName">ระพีภัธท ผาพันธุ์</strong><span id="studentId">66091338</span></div>
+      </section>
+      <div class="dashboard">
+        <section class="balance-card" aria-labelledby="balanceTitle">
+          <div class="card-top"><span id="balanceTitle">ยอดเงินฝากของคุณ</span><span class="small-tag">ON-CHAIN</span></div>
+          <div class="balance"><span id="bankBalance">—</span><span class="unit">ETH</span></div>
+          <p class="balance-note">ยอดของบัญชีที่เชื่อมต่อในสัญญา Bank</p>
+          <button id="refresh" class="button balance-button" disabled>↻ &nbsp; Check Balance</button>
+          <div class="balance-footer"><span>ยอดในกระเป๋า MetaMask</span><strong id="walletBalance">— ETH</strong></div>
+        </section>
+        <section class="wallet-card panel" aria-labelledby="walletTitle">
+          <div class="section-heading"><h2 id="walletTitle">เชื่อมต่อกระเป๋า</h2><span class="step">01</span></div>
+          <p id="walletState" class="muted">เชื่อม MetaMask เพื่อเริ่มใช้งาน</p>
+          <p id="account" class="address">ยังไม่ได้เชื่อมต่อ</p>
+          <button id="connect" class="button primary">เชื่อมต่อ MetaMask <span>↗</span></button>
+          <button id="switchNetwork" class="button secondary" hidden>เปลี่ยนเป็น Sepolia</button>
+          <p class="fine">ใช้ ETH ทดสอบบน Sepolia เท่านั้น<br>การฝากและถอนต้องยืนยันผ่าน MetaMask</p>
+        </section>
+        <section class="panel operation" aria-labelledby="depositTitle">
+          <div class="section-heading"><h2 id="depositTitle"><span class="operation-icon">↓</span> ฝากเงิน</h2><span class="step">02</span></div>
+          <p class="muted">ส่ง ETH จากกระเป๋าเข้า Smart Contract</p>
+          <form id="depositForm"><label for="depositAmount">จำนวนที่ต้องการฝาก</label><div class="amount-field"><input id="depositAmount" inputmode="decimal" type="text" placeholder="0.00" autocomplete="off" required aria-describedby="amountHelp"><span>ETH</span></div><button id="deposit" class="button primary" disabled>Deposit <span>↓</span></button></form>
+        </section>
+        <section class="panel operation" aria-labelledby="withdrawTitle">
+          <div class="section-heading"><h2 id="withdrawTitle"><span class="operation-icon light">↑</span> ถอนเงิน</h2><span class="step">03</span></div>
+          <p class="muted">รับ ETH จากยอดฝากกลับสู่กระเป๋าของคุณ</p>
+          <form id="withdrawForm"><label for="withdrawAmount">จำนวนที่ต้องการถอน</label><div class="amount-field"><input id="withdrawAmount" inputmode="decimal" type="text" placeholder="0.00" autocomplete="off" required aria-describedby="amountHelp"><span>ETH</span></div><button id="withdraw" class="button secondary" disabled>Withdraw <span>↑</span></button></form>
+        </section>
+      </div>
+      <p id="amountHelp" class="fine amount-help">ระบุจำนวนมากกว่า 0 ทศนิยมไม่เกิน 18 ตำแหน่ง • ฝากและถอนมีค่า Gas • Check Balance ไม่เสียค่า Gas</p>
+      <section class="panel contract-panel">
+        <div class="section-heading"><h2>Smart Contract</h2><a id="contractLink" target="_blank" rel="noopener noreferrer" hidden>ดูบน Etherscan ↗</a></div>
+        <form id="contractForm"><label for="contractAddress">Contract Address บน Sepolia</label><div class="contract-input"><input id="contractAddress" type="text" placeholder="0x… วาง Address จาก Remix" spellcheck="false" autocomplete="off"><button id="loadContract" class="button secondary">เชื่อมสัญญา</button></div></form>
+        <p id="contractState" class="fine">รอ Contract Address หลังจาก Deploy บน Remix</p>
+      </section>
+      <div id="status" class="status" role="status" aria-live="polite">เริ่มต้นด้วยการเชื่อมต่อ MetaMask</div>
+      <section class="panel history"><div class="section-heading"><h2>รายการในรอบการใช้งานนี้</h2><span class="label">TRANSACTIONS</span></div><p id="emptyHistory" class="muted">เมื่อส่งธุรกรรมแล้ว ลิงก์และสถานะจะแสดงที่นี่</p><ul id="transactions"></ul></section>
+    </main>
+    <footer><span>BANK DAPP <span class="footer-divider">/</span> BLOCKCHAIN ASSIGNMENT</span><a href="https://sepolia.etherscan.io" target="_blank" rel="noopener noreferrer">Sepolia Etherscan ↗</a></footer>
+  </div>
+  <noscript>กรุณาเปิด JavaScript เพื่อใช้งาน DApp</noscript>
+</body>
+</html>

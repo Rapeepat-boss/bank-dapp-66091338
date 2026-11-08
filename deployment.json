@@ -1,0 +1,11 @@
+{
+  "network": "Sepolia",
+  "chainId": 11155111,
+  "contractAddress": "0xD094a8680a0e1165c2C7ED874d530Ae94Ece8DEa",
+  "deploymentTransaction": "0xbee5636bdc6d746ef9c30a7986ad415315e4466341d29ffd87c3155e5c676a50",
+  "compiler": "0.8.34+commit.80d5c536",
+  "source": "Bank.sol",
+  "etherscanVerification": "verified",
+  "deployedUsing": "Remix Browser Extension / MetaMask",
+  "explorer": "https://sepolia.etherscan.io/address/0xD094a8680a0e1165c2C7ED874d530Ae94Ece8DEa"
+}
